@@ -2,8 +2,7 @@
 
 A skill-sharing and project matching platform that connects people based on their skills and interests. Built for the Microsoft Fabric Hackathon.
 
-[![CI/CD Pipeline](https://github.com/yourusername/skillmatch/actions/workflows/ci.yml/badge.svg)](https://github.com/yourusername/skillmatch/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/yourusername/skillmatch/branch/main/graph/badge.svg)](https://codecov.io/gh/yourusername/skillmatch)
+[![CI/CD Pipeline](https://github.com/yikedabaicaimuuuu/skillmatch-/actions/workflows/ci.yml/badge.svg)](https://github.com/yikedabaicaimuuuu/skillmatch-/actions/workflows/ci.yml)
 
 ## Features
 
@@ -12,7 +11,8 @@ A skill-sharing and project matching platform that connects people based on thei
 - **Interest Tracking**: Define your interests and expertise levels
 - **Project Creation**: Create projects and specify required skills
 - **Team Matching**: Find team members based on skill compatibility
-- **Real-time Updates**: Live notifications for project updates
+- **AI-powered Matching**: Intelligent project recommendations using TF-IDF + Cosine Similarity
+- **Real-time Messaging**: WebSocket-based chat with Socket.io
 
 ## Tech Stack
 
@@ -23,11 +23,13 @@ A skill-sharing and project matching platform that connects people based on thei
 - **Vite** - Fast build tool and dev server
 - **Tailwind CSS** - Utility-first styling
 - **Material-UI & Ant Design** - Component libraries
+- **Socket.io Client** - Real-time communication
 
 ### Backend
 - **Node.js + Express** - REST API server
 - **PostgreSQL** - Primary database
 - **Redis** - Session storage and caching
+- **Socket.io** - WebSocket server
 - **bcrypt** - Password hashing
 - **Nodemailer** - Email service for OTP
 - **Swagger** - API documentation
@@ -49,8 +51,8 @@ A skill-sharing and project matching platform that connects people based on thei
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/skillmatch.git
-   cd skillmatch
+   git clone https://github.com/yikedabaicaimuuuu/skillmatch-.git
+   cd skillmatch-
    ```
 
 2. **Setup Backend**
@@ -104,7 +106,6 @@ npm run test:coverage # Run with coverage
 
 Once the server is running, visit:
 - Local: http://localhost:8000/docs
-- Production: https://skillmatch-dara.onrender.com/docs
 
 ## Project Structure
 
@@ -116,6 +117,8 @@ skillmatch/
 │   │   ├── pages/          # Page components
 │   │   ├── routes/         # Route components
 │   │   ├── redux/          # State management
+│   │   ├── services/       # API services
+│   │   ├── context/        # React contexts
 │   │   └── __tests__/      # Frontend tests
 │   └── Dockerfile
 ├── server/                 # Express backend
