@@ -1,0 +1,257 @@
+/* CSS for SearchResults component */
+
+.search-results {
+  padding: 20px;
+}
+
+.search-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar-header {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.header-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.ai-assistance {
+  background-color: #d1e7dd;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.search-input-container {
+  position: relative;
+}
+
+.search-input {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  outline: none;
+  width: 500px;
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.filter-icon {
+  cursor: pointer;
+}
+
+.results-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.results-list {
+  margin-top: 20px;
+}
+
+.result-item {
+  display: flex;
+  gap: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.thumbnail {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.result-content {
+  flex: 1;
+}
+
+.result-title {
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.result-title:hover {
+  color: #0073e6;
+  text-decoration: underline;
+}
+
+
+.result-details {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #666;
+}
+
+.user-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.tags {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.tag {
+  background-color: #e0e0e0;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.required-people {
+  font-size: 14px;
+  color: #777;
+  margin-top: 5px;
+}
+
+
+.filter-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  z-index: 10;
+}
+
+.project-types {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.project-type {
+  padding: 8px 16px;
+  margin: 4px;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.project-type.selected {
+  background-color: #d1e7dd;
+  font-weight: bold;
+}
+
+
+.filter-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.distance-filter {
+  margin-top: 10px;
+}
+
+.distance-input,
+.postcode-input,
+.country-input {
+  width: 60px;
+  margin-left: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.postcode-input {
+  width: 100px;
+}
+
+.country-input {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px;
+}
+
+
+.filter-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.apply-filter-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.close-modal-button {
+  background-color: #ff4d4f;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logout-button {
+  background-color: #ff4d4f;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+  background-color: #d9363e;
+}
+

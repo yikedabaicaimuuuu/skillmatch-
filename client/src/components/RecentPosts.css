@@ -1,0 +1,211 @@
+.recent-posts {
+    padding: 20px;
+  }
+
+  .recent-posts-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+
+  .post-item {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+
+  .post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .author-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .post-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .skills {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    flex-wrap: wrap;
+  }
+
+  .skill-tag {
+    background-color: #f0f0f0;
+    border-radius: 15px;
+    padding: 3px 8px;
+    font-size: 0.9rem;
+    margin-left: 5px;
+  }
+
+  .post-description {
+    font-size: 1rem;
+    margin-top: 10px;
+    color: #555;
+  }
+
+  .post-image-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .post-image {
+    width: 100%;
+    max-width: 600px; /* Limit image width */
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  .post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+  }
+
+  .post-icons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+  }
+
+  .find-similar-button {
+    background-color: #e0f7e0;
+    color: #333;
+    border: none;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .find-similar-button:hover {
+    background-color: #d4edda;
+  }
+
+  .fixed-chat-button {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+
+  .fixed-chat-button:hover {
+    background-color: #0056b3;
+  }
+
+  .logout-button {
+    background-color: #ff4d4f;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    transition: background-color 0.3s;
+  }
+
+  .logout-button:hover {
+    background-color: #d9363e;
+  }
+
+  /* Adjustments for small screens (tablets and phones) */
+@media (max-width: 768px) {
+    .recent-posts {
+      padding: 10px; /* Reduce padding */
+    }
+
+    .recent-posts-title {
+      font-size: 1.3rem;
+    }
+
+    .post-item {
+      padding: 10px;
+    }
+
+    .author-avatar {
+      width: 30px;
+      height: 30px;
+      margin-right: 8px;
+    }
+
+    .post-title {
+      font-size: 1.1rem;
+    }
+
+    .skill-tag {
+      font-size: 0.8rem;
+      padding: 2px 6px;
+      margin-left: 4px;
+    }
+
+    .post-description {
+      font-size: 0.9rem;
+    }
+
+    .post-footer {
+      flex-direction: column; /* Stack the footer elements */
+      align-items: flex-start;
+    }
+
+    .find-similar-button {
+      padding: 6px 10px;
+      font-size: 0.8rem;
+    }
+
+    .fixed-chat-button {
+      right: 15px;
+      bottom: 15px;
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+  }
+
+  /* Additional styling for very small screens (phones) */
+  @media (max-width: 480px) {
+    .recent-posts-title {
+      font-size: 1.2rem;
+    }
+
+    .post-title {
+      font-size: 1rem;
+    }
+
+    .post-icons {
+      font-size: 1rem;
+    }
+
+    .fixed-chat-button {
+      font-size: 12px;
+      padding: 6px 12px;
+    }
+  }

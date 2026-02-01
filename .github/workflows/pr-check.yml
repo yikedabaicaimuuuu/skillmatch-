@@ -1,0 +1,65 @@
+name: PR Check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  pr-validation:
+    name: PR Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Check commit messages
+        run: |
+          echo "Validating commit messages..."
+          # Add commit message validation if needed
+
+      - name: Check for large files
+        run: |
+          echo "Checking for large files..."
+          find . -type f -size +5M -not -path "./.git/*" | head -20
+
+      - name: Check for sensitive data
+        run: |
+          echo "Scanning for potential secrets..."
+          # Basic check for common secret patterns
+          if grep -rE "(api[_-]?key|secret|password|token)\s*[:=]\s*['\"][^'\"]+['\"]" --include="*.js" --include="*.json" --exclude-dir=node_modules --exclude-dir=.git .; then
+            echo "Warning: Potential secrets found. Please review."
+          fi
+        continue-on-error: true
+
+  size-check:
+    name: Bundle Size Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Install dependencies
+        working-directory: ./client
+        run: npm ci
+
+      - name: Build and check size
+        working-directory: ./client
+        run: |
+          npm run build
+          echo "Build output size:"
+          du -sh dist/
+          du -sh dist/assets/*
