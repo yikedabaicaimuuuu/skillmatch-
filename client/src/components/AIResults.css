@@ -136,3 +136,29 @@
   font-size: 11px;
   font-weight: 500;
 }
+
+.search-match-info {
+  margin: 8px 0;
+  padding: 6px 10px;
+  background-color: #fef3c7;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.search-label {
+  color: #92400e;
+  font-weight: 500;
+}
+
+.search-score {
+  color: #d97706;
+  font-weight: bold;
+}
+
+.search-keywords {
+  color: #78716c;
+  font-style: italic;
+}

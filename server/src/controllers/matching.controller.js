@@ -19,11 +19,12 @@ class MatchingController {
         throw errorThrower(401, "Authentication required");
       }
 
-      const { limit = 10, minScore = 0.1 } = request.body;
+      const { limit = 10, minScore = 0.1, searchQuery = '' } = request.body;
 
       const result = await MatchingService.getMatchedProjects(userId, {
         limit: Math.min(limit, 50), // Cap at 50
-        minScore
+        minScore,
+        searchQuery: searchQuery?.trim() || ''
       });
 
       response.status(200).json({

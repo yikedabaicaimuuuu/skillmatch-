@@ -37,12 +37,19 @@ const SearchResults = () => {
   };
 
   // AI Matching function - calls the real AI matching API
+  // Now supports search query for combined search + AI matching
   const handleAIAssistance = async () => {
     setLoadingAI(true);
     setAIResults(null);
+    setSearchPerformed(false);
 
     try {
-      const response = await MatchingService.getMatchedProjects({ limit: 10, minScore: 0.05 });
+      // Pass searchQuery to AI matching for combined results
+      const response = await MatchingService.getMatchedProjects({
+        limit: 15,
+        minScore: 0.01,
+        searchQuery: searchQuery.trim()
+      });
 
       if (response.status === "success" && response.data) {
         // Transform API response to match the expected format

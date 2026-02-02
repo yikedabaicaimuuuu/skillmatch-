@@ -8,9 +8,13 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
 class MatchingService {
   /**
    * Get AI-matched projects for the current user
+   * @param {Object} options - Matching options
+   * @param {number} options.limit - Max results to return
+   * @param {number} options.minScore - Minimum match score (0-1)
+   * @param {string} options.searchQuery - Optional search keywords to filter and boost results
    */
   async getMatchedProjects(options = {}) {
-    const { limit = 10, minScore = 0.1 } = options;
+    const { limit = 10, minScore = 0.1, searchQuery = '' } = options;
 
     try {
       const response = await fetch(`${API_URL}/matching/projects`, {
@@ -19,7 +23,7 @@ class MatchingService {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ limit, minScore })
+        body: JSON.stringify({ limit, minScore, searchQuery })
       });
 
       const data = await response.json();

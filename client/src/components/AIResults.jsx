@@ -82,6 +82,19 @@ const AIResults = ({ results }) => {
                 )}
                 <p className="required-people">Needs {result.requiredPeople} people to start the project</p>
 
+                {/* Search Match Highlight */}
+                {result.matchDetails?.searchRelevance > 0 && (
+                  <div className="search-match-info">
+                    <span className="search-label">Search match: </span>
+                    <span className="search-score">{result.matchDetails.searchRelevance}%</span>
+                    {result.matchDetails.searchKeywords && (
+                      <span className="search-keywords">
+                        ({result.matchDetails.searchKeywords.join(', ')})
+                      </span>
+                    )}
+                  </div>
+                )}
+
                 {/* Matching Skills Highlight */}
                 {result.matchDetails?.matchingSkills?.length > 0 && (
                   <div className="matching-skills">

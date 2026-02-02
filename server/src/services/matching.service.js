@@ -211,10 +211,57 @@ class MatchingService {
   }
 
   /**
+   * Calculate search relevance score based on keyword matching
+   */
+  calculateSearchRelevance(project, searchQuery) {
+    if (!searchQuery || !searchQuery.trim()) {
+      return { score: 0, matches: [] };
+    }
+
+    const query = searchQuery.toLowerCase().trim();
+    const keywords = query.split(/\s+/).filter(k => k.length > 1);
+
+    const title = (project.title || '').toLowerCase();
+    const description = (project.description || '').toLowerCase();
+    const skills = this.parseProjectSkills(project);
+    const content = `${title} ${description} ${skills.join(' ')}`;
+
+    let score = 0;
+    const matches = [];
+
+    keywords.forEach(keyword => {
+      // Title match (highest weight)
+      if (title.includes(keyword)) {
+        score += 0.4;
+        matches.push({ field: 'title', keyword });
+      }
+      // Skills match (high weight)
+      if (skills.some(skill => skill.includes(keyword))) {
+        score += 0.35;
+        matches.push({ field: 'skills', keyword });
+      }
+      // Description match (medium weight)
+      if (description.includes(keyword)) {
+        score += 0.25;
+        matches.push({ field: 'description', keyword });
+      }
+    });
+
+    // Normalize by keyword count
+    const normalizedScore = keywords.length > 0 ? score / keywords.length : 0;
+
+    return {
+      score: Math.min(normalizedScore, 1),
+      matches,
+      keywords
+    };
+  }
+
+  /**
    * Main matching function - finds best projects for a user
    */
   async getMatchedProjects(userId, options = {}) {
-    const { limit = 10, minScore = 0.1 } = options;
+    const { limit = 10, minScore = 0.1, searchQuery = '' } = options;
 
     try {
       // Get all projects
@@ -240,10 +287,29 @@ class MatchingService {
         ORDER BY p."createdAt" DESC
       `;
       const projectsResult = await pool.query(projectsSql, [userId]);
-      const projects = projectsResult.rows;
+      let projects = projectsResult.rows;
+
+      // If search query provided, filter projects first
+      const hasSearchQuery = searchQuery && searchQuery.trim().length > 0;
+
+      if (hasSearchQuery) {
+        // Pre-filter: only keep projects with some search relevance
+        projects = projects.filter(project => {
+          const { score } = this.calculateSearchRelevance(project, searchQuery);
+          return score > 0;
+        });
+      }
 
       if (projects.length === 0) {
-        return { matches: [], meta: { totalProjects: 0, algorithm: 'skill-match-v1' } };
+        return {
+          matches: [],
+          meta: {
+            totalProjects: 0,
+            algorithm: 'skill-match-v2',
+            searchQuery: searchQuery || null,
+            message: hasSearchQuery ? 'No projects match your search query' : 'No projects available'
+          }
+        };
       }
 
       // Get user data
@@ -268,16 +334,32 @@ class MatchingService {
         const { boost: interestBoost, matchCount: interestMatches } =
           this.calculateInterestBoost(project, userInterests);
 
+        // Calculate search relevance (if search query provided)
+        const { score: searchRelevance, matches: searchMatches, keywords } =
+          this.calculateSearchRelevance(project, searchQuery);
+
         // Calculate other factors
         const recencyScore = this.calculateRecencyScore(project.createdAt);
         const engagementScore = this.calculateEngagementScore(project.stats);
 
-        // Compute final score
-        const baseScore = skillSimilarity;
-        const finalScore = Math.min(
-          baseScore + interestBoost + recencyScore + engagementScore,
-          1.0
-        );
+        // Compute final score with search relevance
+        // If search query exists, it becomes the primary factor (40% weight)
+        let finalScore;
+        if (hasSearchQuery) {
+          finalScore = Math.min(
+            (searchRelevance * 0.4) +      // Search relevance: 40%
+            (skillSimilarity * 0.35) +     // Skill match: 35%
+            (interestBoost * 0.5) +        // Interest boost: up to 10%
+            (recencyScore * 0.5) +         // Recency: up to 5%
+            (engagementScore * 0.5),       // Engagement: up to 7.5%
+            1.0
+          );
+        } else {
+          finalScore = Math.min(
+            skillSimilarity + interestBoost + recencyScore + engagementScore,
+            1.0
+          );
+        }
 
         // Calculate matching skills for display
         const matchingSkills = projectSkills.filter(skill =>
@@ -290,6 +372,9 @@ class MatchingService {
           matchDetails: {
             skillSimilarity: Math.round(skillSimilarity * 100),
             interestBoost: Math.round(interestBoost * 100),
+            searchRelevance: hasSearchQuery ? Math.round(searchRelevance * 100) : null,
+            searchMatches: hasSearchQuery ? searchMatches : null,
+            searchKeywords: hasSearchQuery ? keywords : null,
             recencyBonus: Math.round(recencyScore * 100),
             engagementBonus: Math.round(engagementScore * 100),
             matchingSkills,
@@ -313,7 +398,8 @@ class MatchingService {
           matchedProjects: filteredProjects.length,
           userSkillCount: Object.keys(userSkills).length,
           userInterestCount: Object.keys(userInterests).length,
-          algorithm: 'skill-match-v1',
+          searchQuery: searchQuery || null,
+          algorithm: hasSearchQuery ? 'skill-match-v2-search' : 'skill-match-v2',
           timestamp: new Date().toISOString()
         }
       };
