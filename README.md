@@ -60,6 +60,7 @@ A skill-sharing and project matching platform that connects people based on thei
    cd server
    cp .env.example .env  # Configure your environment variables
    npm install
+   npm run seed          # Populate database with test data
    npm run dev
    ```
 
@@ -70,6 +71,29 @@ A skill-sharing and project matching platform that connects people based on thei
    npm install
    npm run dev
    ```
+
+### Database Setup
+
+The project includes a seed script to populate the database with test data:
+
+```bash
+cd server
+npm run seed
+```
+
+This creates:
+- 10 test users (password: `password123`)
+- 30 skills (JavaScript, Python, React, etc.)
+- 20 interests (Web Development, AI/ML, etc.)
+- 20 sample projects
+- User-skill and user-interest associations
+
+Test accounts:
+| Email | Password |
+|-------|----------|
+| alice@example.com | password123 |
+| bob@example.com | password123 |
+| carol@example.com | password123 |
 
 ### Using Docker
 
