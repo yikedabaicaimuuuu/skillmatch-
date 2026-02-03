@@ -9,7 +9,8 @@
     "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --watch",
     "test:ci": "NODE_OPTIONS=--experimental-vm-modules jest --coverage --ci --reporters=default --reporters=jest-junit",
     "dev": "nodemon src/server.js",
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "seed": "node scripts/seed.js"
   },
   "keywords": ["skillmatch", "skills", "matching", "hackathon"],
   "author": "",
